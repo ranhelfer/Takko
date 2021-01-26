@@ -5,46 +5,107 @@
 //  Created by rhalfer on 25/01/2021.
 //
 
+/*
+ 
+    Still have issues like how to use correctly dispatch queues and not run everything on main thread
+    
+ 
+ */
 import SwiftUI
 import MapKit
 
-struct AnnotationItem: Identifiable {
-    var coordinate: CLLocationCoordinate2D
-    let id = UUID()
-}
-
 struct MapView: View {
-
+    
     @ObservedObject var locationManager = LocationManager()
 
     /* You use the @State attribute to establish a source of truth for data in your app that you can modify from more than one view. SwiftUI manages the underlying storage and automatically updates views that depend on the value. */
     @State private var region = MKCoordinateRegion()
     @State private var businesses = [BusinessModel]()
     @State private var annotationItems = [AnnotationItem]()
+    @State private var selectedBusiness: BusinessModel?
     
+    static let filterType = ["Geo-Location", "Search", "Sort by Distance", "Sort by Rating"]
+    @State var selectedFilterType = 2
+    @State var searchByKeyText = ""
+
     private var dragGesture = DragGesture()
     private let currentSpan = 0.07
     
-    var body: some View {
-        VStack {
-            Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
-                MapPin(coordinate: item.coordinate)
-            }.gesture(dragGesture.onChanged({ (value) in
-                /* Show a spinner ? */
-            }).onEnded({ value in
-                hitService()
-            }))
-            CurrentLocationView(region: $region)
-            List {
-                ForEach(self.businesses) { business in
-                    Text(business.name ?? "")
-                }
-            }
+    var sortedBusinesses: [BusinessModel] {
+        /* Return the desired filter here */
+        if selectedFilterType == 0 {
             
-            Spacer()
-        }.onReceive(self.locationManager.objectWillChange, perform: { _ in
-            handleOnRecieveEvent()
-        })
+        }
+        if selectedFilterType == 1 {
+            if searchByKeyText.isEmpty {
+                return businesses
+            }
+            return businesses.filter { (model) -> Bool in
+                (model.name?.contains(searchByKeyText) ?? false)
+            }
+        }
+        if selectedFilterType == 2 {
+            return businesses.sorted(by: { $0.distance ?? 0 < $1.distance ?? 0})
+        }
+        return businesses.sorted(by: { $0.rating ?? 0 > $1.rating ?? 0})
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form {
+                    Picker("Payment Type", selection: $selectedFilterType) {
+                        ForEach(0 ..< Self.filterType.count) { index in
+                            Text(Self.filterType[index])
+                        }
+                    }
+                    if selectedFilterType == 1 {
+                        TextField("Enter Search Text Here", text: $searchByKeyText, onCommit: didPressReturn)
+                    }
+                    
+                }.frame(height: selectedFilterType == 1 ? 150 :  /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .top)
+                                
+                Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
+                    MapPin(coordinate: item.coordinate)
+                }.gesture(dragGesture.onChanged({ (value) in
+                    /* Show a spinner ? */
+                }).onEnded({ value in
+                    // Maybe upon end of drag we should hit the service ?
+                    //hitService()
+                }))
+                
+                CurrentLocationView(region: $region)
+                
+                List {
+                    ForEach(self.sortedBusinesses) { business in
+                        Text(self.stringForFilter(business: business))
+                            .font(.body)
+                            .onTapGesture {
+                                /* Show restaurant page ? if so use the NavigationLink */
+                                selectedBusiness = business
+                            }
+                    }
+                }
+                Spacer()
+            }.onReceive(self.locationManager.objectWillChange, perform: { _ in
+                handleOnRecieveEvent()
+            })
+            .navigationBarTitle("") //this must be empty
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+        }
+    }
+    
+    func stringForFilter(business: BusinessModel) -> String {
+        var str = "\(business.name ?? "")  distance \(business.distance ?? 0)"
+        if self.selectedFilterType == 3 {
+            str = "\(business.name ?? "")  rating \(business.rating ?? 0)"
+        }
+        return str
+    }
+    func didPressReturn() {
+        print("did press return")
+        
     }
     
     private func handleOnRecieveEvent() {
@@ -64,7 +125,7 @@ struct MapView: View {
             
             for business in self.businesses {
                 if let coordinate = business.coordinates?.coordinates() {
-                    self.annotationItems.append(AnnotationItem(coordinate: coordinate))
+                    self.annotationItems.append(AnnotationItem(coordinate: coordinate, business: business))
                 }
             }
         }
