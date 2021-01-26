@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 struct BusinessModels: Hashable, Codable {
     let businesses: [BusinessModel]
@@ -27,6 +28,10 @@ struct BusinessModel: Hashable, Codable, Identifiable {
 struct BusinessModelCoordinates: Hashable, Codable {
     let latitude: Double?
     let longitude: Double?
+    
+    func coordinates() -> CLLocationCoordinate2D? {
+        return CLLocationCoordinate2D(latitude: latitude ?? 0, longitude: longitude ?? 0)
+    }
 }
 
 struct BusinessModelCategory: Hashable, Codable {

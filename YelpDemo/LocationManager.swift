@@ -14,7 +14,8 @@ import MapKit
 
 class LocationManager: NSObject, ObservableObject {
     
-    @Published var lastLocation: CLLocation? {
+    @Published var lastLocation: CLLocation?
+    {
         didSet {
             objectWillChange.send()
         }
