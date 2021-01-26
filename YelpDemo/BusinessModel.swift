@@ -11,7 +11,8 @@ struct BusinessModels: Hashable, Codable {
     let businesses: [BusinessModel]
 }
 
-struct BusinessModel: Hashable, Codable {
+struct BusinessModel: Hashable, Codable, Identifiable {
+    let id: String
     let name: String?
     let image_url: String?
     let is_closed: Bool?

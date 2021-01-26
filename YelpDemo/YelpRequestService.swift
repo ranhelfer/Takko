@@ -13,7 +13,7 @@ class YelpRequestService {
     private var apiAuthorizationKeyValue =  "Bearer ag-mjor2Zjhk_SRK-CN-rT3CV9qdCz_2qW6Ss5SW2SqS3ZdzBMosxkfXNSAlV0dPP01Ef3WRY_ptz-FDrIWocdepHYbtfA5jhmOnZw7u89DVPKHuLuZMKxpknY4OYHYx"
     private var apiAuthorizationKey =  "Authorization"
     private var yelpBaseURL = "https://api.yelp.com/v3/businesses/"
-    private var downloadedModel: BusinessModels?
+    private(set) var downloadedModel: BusinessModels?
         
     func request(latitude: CGFloat,
                  longitude: CGFloat,
