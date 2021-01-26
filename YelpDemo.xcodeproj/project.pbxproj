@@ -13,6 +13,9 @@
 		6814C23E25BECDC900E12364 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6814C23D25BECDC900E12364 /* Preview Assets.xcassets */; };
 		6814C24925BECDC900E12364 /* YelpDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C24825BECDC900E12364 /* YelpDemoTests.swift */; };
 		6814C25425BECDC900E12364 /* YelpDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C25325BECDC900E12364 /* YelpDemoUITests.swift */; };
+		6814C26525BECDF300E12364 /* YelpRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26425BECDF300E12364 /* YelpRequestService.swift */; };
+		6814C26A25BED8AC00E12364 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26925BED8AC00E12364 /* MapView.swift */; };
+		6814C26F25BED90500E12364 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26E25BED90500E12364 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		6814C24F25BECDC900E12364 /* YelpDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YelpDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6814C25325BECDC900E12364 /* YelpDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpDemoUITests.swift; sourceTree = "<group>"; };
 		6814C25525BECDC900E12364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6814C26425BECDF300E12364 /* YelpRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpRequestService.swift; sourceTree = "<group>"; };
+		6814C26925BED8AC00E12364 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		6814C26E25BED90500E12364 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,9 @@
 			children = (
 				6814C23625BECDC600E12364 /* YelpDemoApp.swift */,
 				6814C23825BECDC600E12364 /* ContentView.swift */,
+				6814C26925BED8AC00E12364 /* MapView.swift */,
+				6814C26E25BED90500E12364 /* LocationManager.swift */,
+				6814C26425BECDF300E12364 /* YelpRequestService.swift */,
 				6814C23A25BECDC900E12364 /* Assets.xcassets */,
 				6814C23F25BECDC900E12364 /* Info.plist */,
 				6814C23C25BECDC900E12364 /* Preview Content */,
@@ -260,7 +269,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6814C23925BECDC600E12364 /* ContentView.swift in Sources */,
+				6814C26A25BED8AC00E12364 /* MapView.swift in Sources */,
+				6814C26F25BED90500E12364 /* LocationManager.swift in Sources */,
 				6814C23725BECDC600E12364 /* YelpDemoApp.swift in Sources */,
+				6814C26525BECDF300E12364 /* YelpRequestService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
