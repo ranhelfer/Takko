@@ -16,6 +16,7 @@
 		6814C26525BECDF300E12364 /* YelpRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26425BECDF300E12364 /* YelpRequestService.swift */; };
 		6814C26A25BED8AC00E12364 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26925BED8AC00E12364 /* MapView.swift */; };
 		6814C26F25BED90500E12364 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26E25BED90500E12364 /* LocationManager.swift */; };
+		6814C27425BFFD2A00E12364 /* BusinessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C27325BFFD2A00E12364 /* BusinessModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6814C26425BECDF300E12364 /* YelpRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpRequestService.swift; sourceTree = "<group>"; };
 		6814C26925BED8AC00E12364 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		6814C26E25BED90500E12364 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		6814C27325BFFD2A00E12364 /* BusinessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				6814C26925BED8AC00E12364 /* MapView.swift */,
 				6814C26E25BED90500E12364 /* LocationManager.swift */,
 				6814C26425BECDF300E12364 /* YelpRequestService.swift */,
+				6814C27325BFFD2A00E12364 /* BusinessModel.swift */,
 				6814C23A25BECDC900E12364 /* Assets.xcassets */,
 				6814C23F25BECDC900E12364 /* Info.plist */,
 				6814C23C25BECDC900E12364 /* Preview Content */,
@@ -271,6 +274,7 @@
 				6814C23925BECDC600E12364 /* ContentView.swift in Sources */,
 				6814C26A25BED8AC00E12364 /* MapView.swift in Sources */,
 				6814C26F25BED90500E12364 /* LocationManager.swift in Sources */,
+				6814C27425BFFD2A00E12364 /* BusinessModel.swift in Sources */,
 				6814C23725BECDC600E12364 /* YelpDemoApp.swift in Sources */,
 				6814C26525BECDF300E12364 /* YelpRequestService.swift in Sources */,
 			);
@@ -359,7 +363,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -414,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
