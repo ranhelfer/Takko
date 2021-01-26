@@ -21,14 +21,19 @@ struct MapView: View {
     @State private var region = MKCoordinateRegion()
     @State private var businesses = [BusinessModel]()
     @State private var annotationItems = [AnnotationItem]()
-
+    
+    private var dragGesture = DragGesture()
     private let currentSpan = 0.07
     
     var body: some View {
         VStack {
             Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
                 MapPin(coordinate: item.coordinate)
-            }
+            }.gesture(dragGesture.onChanged({ (value) in
+                /* Show a spinner ? */
+            }).onEnded({ value in
+                hitService()
+            }))
             CurrentLocationView(region: $region)
             List {
                 ForEach(self.businesses) { business in
@@ -48,7 +53,10 @@ struct MapView: View {
         }
         
         setRegion()
-        
+        hitService()
+    }
+    
+    private func hitService() {
         let service = YelpRequestService()
         
         if let serviceRequestBusinesses = service.request(latitude: CGFloat(region.center.latitude), longitude: CGFloat(region.center.longitude)) {
@@ -61,6 +69,7 @@ struct MapView: View {
             }
         }
     }
+    
     private func locationManagerCoordinate() -> CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: locationManager.lastLocation?.coordinate.latitude ?? 0, longitude: locationManager.lastLocation?.coordinate.longitude ?? 0)
     }
@@ -75,7 +84,7 @@ struct MapView: View {
     }
     
     private func setRegion() {
-        /*  This line specifically is causing
+        /*  TODO: Check why this line specifically is causing
             runtime: SwiftUI: Modifying state during view update, this will cause undefined behavior. */
         region = MKCoordinateRegion(
                     center: locationManagerCoordinate(),
