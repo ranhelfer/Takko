@@ -13,13 +13,15 @@ class YelpRequestService {
     private var apiAuthorizationKeyValue =  "Bearer ag-mjor2Zjhk_SRK-CN-rT3CV9qdCz_2qW6Ss5SW2SqS3ZdzBMosxkfXNSAlV0dPP01Ef3WRY_ptz-FDrIWocdepHYbtfA5jhmOnZw7u89DVPKHuLuZMKxpknY4OYHYx"
     private var apiAuthorizationKey =  "Authorization"
     private var yelpBaseURL = "https://api.yelp.com/v3/businesses/"
-    private(set) var downloadedModel: BusinessModels?
-        
+    private static let defaultRadius = 8000
+    
     func request(latitude: CGFloat,
                  longitude: CGFloat,
-                 radius: Int = 8000) {
+                 radius: Int = YelpRequestService.defaultRadius) -> [BusinessModel]?  {
+        
         if (latitude == 0 && longitude == 0) {
-            return
+            /* Obviously we are somewhere bellow africa... no Yelp there :) */
+            return nil
         }
         
         let semaphore = DispatchSemaphore (value: 0)
@@ -47,10 +49,12 @@ class YelpRequestService {
         if let data = downloadedData {
             do {
                 let decoder = JSONDecoder()
-                downloadedModel = try decoder.decode(BusinessModels.self, from: data)
+                let downloadedModels = try decoder.decode(BusinessModels.self, from: data)
+                return downloadedModels.businesses
             } catch {
                 fatalError("Couldn't parse file")
             }
         }
+        return nil
     }
 }

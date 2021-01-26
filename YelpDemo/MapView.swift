@@ -26,7 +26,7 @@ struct MapView: View {
                 } else {
                     Text("Loading location...")
                 }
-            }
+            }.foregroundColor(.green)
             List {
                 ForEach(self.businesses) { business in
                     Text(business.name ?? "")
@@ -34,7 +34,7 @@ struct MapView: View {
             }
             
             Spacer()
-        }.onReceive(self.locationManager.objectWillChange, perform: { object in
+        }.onReceive(self.locationManager.objectWillChange, perform: { _ in
             handleOnRecieveEvent()
         })
     }
@@ -43,9 +43,9 @@ struct MapView: View {
         region = setRegion()
         
         let service = YelpRequestService()
-        service.request(latitude: CGFloat(region.center.latitude), longitude: CGFloat(region.center.longitude))
-        if let businesses = service.downloadedModel?.businesses {
-            self.businesses = businesses
+        
+        if let serviceRequestBusinesses = service.request(latitude: CGFloat(region.center.latitude), longitude: CGFloat(region.center.longitude)) {
+            self.businesses = serviceRequestBusinesses
         }
     }
     

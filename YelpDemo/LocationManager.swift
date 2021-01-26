@@ -31,19 +31,6 @@ class LocationManager: NSObject, ObservableObject {
         self.locationManager.startUpdatingLocation()
     }
 
-
-    /*{
-        willSet {
-            let newLongitude = newValue?.coordinate.longitude ?? 0
-            let newLatitude = newValue?.coordinate.latitude ?? 0
-            let currentLongitude = lastLocation?.coordinate.longitude ?? 0
-            let currentLatitude = lastLocation?.coordinate.latitude ?? 0
-            if currentLatitude != newLatitude && currentLongitude != newLongitude {
-               objectWillChange.send()
-            }
-        }
-    }*/
-
     var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
