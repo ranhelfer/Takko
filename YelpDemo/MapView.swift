@@ -20,23 +20,16 @@ struct MapView: View {
     /* You use the @State attribute to establish a source of truth for data in your app that you can modify from more than one view. SwiftUI manages the underlying storage and automatically updates views that depend on the value. */
     @State private var region = MKCoordinateRegion()
     @State private var businesses = [BusinessModel]()
-    
-    private var currentSpan = 0.07
     @State private var annotationItems = [AnnotationItem]()
+
+    private let currentSpan = 0.07
     
     var body: some View {
         VStack {
             Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
                 MapPin(coordinate: item.coordinate)
             }
-            HStack {
-                if region.center.latitude != 0 &&  region.center.longitude != 0 {
-                    Text("latitude: \(region.center.latitude)")
-                    Text("longitude: \(region.center.longitude)")
-                } else {
-                    Text("Loading location...")
-                }
-            }.foregroundColor(.green)
+            CurrentLocationView(region: $region)
             List {
                 ForEach(self.businesses) { business in
                     Text(business.name ?? "")

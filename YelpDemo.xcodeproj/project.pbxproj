@@ -17,6 +17,7 @@
 		6814C26A25BED8AC00E12364 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26925BED8AC00E12364 /* MapView.swift */; };
 		6814C26F25BED90500E12364 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C26E25BED90500E12364 /* LocationManager.swift */; };
 		6814C27425BFFD2A00E12364 /* BusinessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C27325BFFD2A00E12364 /* BusinessModel.swift */; };
+		6814C28225C028A600E12364 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6814C28125C028A600E12364 /* CurrentLocationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		6814C26925BED8AC00E12364 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		6814C26E25BED90500E12364 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		6814C27325BFFD2A00E12364 /* BusinessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessModel.swift; sourceTree = "<group>"; };
+		6814C28125C028A600E12364 /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				6814C23625BECDC600E12364 /* YelpDemoApp.swift */,
 				6814C23825BECDC600E12364 /* ContentView.swift */,
 				6814C26925BED8AC00E12364 /* MapView.swift */,
+				6814C28125C028A600E12364 /* CurrentLocationView.swift */,
 				6814C26E25BED90500E12364 /* LocationManager.swift */,
 				6814C26425BECDF300E12364 /* YelpRequestService.swift */,
 				6814C27325BFFD2A00E12364 /* BusinessModel.swift */,
@@ -277,6 +280,7 @@
 				6814C27425BFFD2A00E12364 /* BusinessModel.swift in Sources */,
 				6814C23725BECDC600E12364 /* YelpDemoApp.swift in Sources */,
 				6814C26525BECDF300E12364 /* YelpRequestService.swift in Sources */,
+				6814C28225C028A600E12364 /* CurrentLocationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
