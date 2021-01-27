@@ -13,7 +13,7 @@ struct CurrentLocationView: View {
     
     var body: some View {
         HStack {
-            if region.center.latitude != 0 &&  region.center.longitude != 0 {
+            if Int(region.center.latitude) != 0 && Int(region.center.longitude) != 0 {
                 Text("latitude: \(region.center.latitude)")
                 Text("longitude: \(region.center.longitude)")
             } else {

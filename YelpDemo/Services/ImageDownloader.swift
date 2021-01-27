@@ -9,8 +9,11 @@ import Foundation
 import SwiftUI
 class ImageDownloader: NSObject, ObservableObject {
     
-    @Published var imageDownloaded: UIImage?
-    var imageURL: String?
+    @Published var imageDownloaded: UIImage? {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
     
     func request(imageURLString: String) {
         guard let url = URL(string:imageURLString) else {

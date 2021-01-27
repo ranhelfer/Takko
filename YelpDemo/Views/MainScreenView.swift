@@ -23,7 +23,7 @@ struct MainScreenView: View {
     @State private var businesses = [BusinessModel]()
     @State private var annotationItems = [AnnotationItem]()
     @State private var selectedBusiness: BusinessModel?
-    
+
     static let filterType = ["Geo-Location", "Search", "Sort by Distance", "Sort by Rating"]
     @State var selectedFilterType = 2
     @State var searchByKeyText = ""
@@ -43,7 +43,19 @@ struct MainScreenView: View {
                 return businesses
             }
             return businesses.filter { (model) -> Bool in
-                (model.name?.contains(searchByKeyText) ?? false)
+                for category in model.categories {
+                    if let title = category.title {
+                        if title.contains(searchByKeyText) {
+                            return true
+                        }
+                    }
+                    if let alias = category.alias {
+                        if alias.contains(searchByKeyText) {
+                            return true
+                        }
+                    }
+                }
+                return (model.name?.contains(searchByKeyText) ?? false)
             }
         }
         if selectedFilterType == 2 {
@@ -83,7 +95,7 @@ struct MainScreenView: View {
                 
                 List {
                     ForEach(self.sortedBusinesses) { business in
-                        BuisnessRow(buisness: business, itemString: self.stringForFilter(business: business))
+                        BusinessRow(business: business, itemString: self.stringForFilter(business: business))
                     }
                 }
                 Spacer()
@@ -120,8 +132,8 @@ struct MainScreenView: View {
         let inputLatitudeFloatVal = (self.inputLatitude as NSString).floatValue
         let inputLongitudeFloatVal = (self.inputLongitude as NSString).floatValue
         
-        
-        guard inputLatitudeFloatVal != 0 && inputLongitudeFloatVal != 0 else {
+        /* We int this since otherwise the system refer to this as -0.0 */
+        guard Int(inputLatitudeFloatVal) != 0 && Int(inputLongitudeFloatVal) != 0 else {
             return
         }
         
@@ -166,9 +178,14 @@ struct MainScreenView: View {
     private func shouldSetRegion() -> Bool {
         let newCoordinate = locationManagerCoordinate()
         if region.center.latitude == newCoordinate.latitude &&
-            region.center.longitude == newCoordinate.longitude  {
+            region.center.longitude == newCoordinate.longitude {
             return false
         }
+    
+        guard selectedFilterType != 0 else {
+                return false
+        }
+        
         return true
     }
     
