@@ -27,6 +27,8 @@ struct MapView: View {
     static let filterType = ["Geo-Location", "Search", "Sort by Distance", "Sort by Rating"]
     @State var selectedFilterType = 2
     @State var searchByKeyText = ""
+    @State var inputLatitude = ""
+    @State var inputLongitude = ""
 
     private var dragGesture = DragGesture()
     private let currentSpan = 0.07
@@ -54,7 +56,7 @@ struct MapView: View {
         NavigationView {
             VStack {
                 Form {
-                    Picker("Payment Type", selection: $selectedFilterType) {
+                    Picker("Show Location By:", selection: $selectedFilterType) {
                         ForEach(0 ..< Self.filterType.count) { index in
                             Text(Self.filterType[index])
                         }
@@ -62,8 +64,16 @@ struct MapView: View {
                     if selectedFilterType == 1 {
                         TextField("Enter Search Text Here", text: $searchByKeyText, onCommit: didPressReturn)
                     }
-                    
-                }.frame(height: selectedFilterType == 1 ? 150 :  /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .top)
+                    if selectedFilterType == 0 {
+                        HStack {
+                            Spacer()
+                            TextField("Latitude \(region.center.latitude)", text: $inputLatitude, onCommit: didPressReturnLatitude)
+                            Spacer()
+                            TextField("Longitude \(region.center.longitude)", text: $inputLongitude, onCommit: didPressReturnLongitude)
+                            Spacer()
+                        }.keyboardType(.numbersAndPunctuation)
+                    }
+                }.frame(height: self.showingTextFields() ? 150 :  /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .top)
                                 
                 Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
                     MapPin(coordinate: item.coordinate)
@@ -96,6 +106,10 @@ struct MapView: View {
         }
     }
     
+    private func showingTextFields() -> Bool {
+        return selectedFilterType == 0 || selectedFilterType == 1
+    }
+    
     func stringForFilter(business: BusinessModel) -> String {
         var str = "\(business.name ?? "")  distance \(business.distance ?? 0)"
         if self.selectedFilterType == 3 {
@@ -106,6 +120,34 @@ struct MapView: View {
     func didPressReturn() {
         print("did press return")
         
+    }
+    
+    func didPressReturnLatitude() {
+        evaluateInputGeoLocations()
+    }
+    
+    func didPressReturnLongitude() {
+        evaluateInputGeoLocations()
+    }
+    
+    private func evaluateInputGeoLocations() {
+        let inputLatitudeFloatVal = (self.inputLatitude as NSString).floatValue
+        let inputLongitudeFloatVal = (self.inputLongitude as NSString).floatValue
+        
+        
+        guard inputLatitudeFloatVal != 0 && inputLongitudeFloatVal != 0 else {
+            return
+        }
+        
+        print("ranh latitude=\(inputLatitudeFloatVal) longitude=\(inputLongitudeFloatVal)")
+        
+        let selectedCenter:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(inputLatitudeFloatVal),
+                                                                           longitude: Double(inputLongitudeFloatVal))
+        region = MKCoordinateRegion(
+                    center: selectedCenter,
+                    span: MKCoordinateSpan(latitudeDelta: currentSpan, longitudeDelta: currentSpan))
+        
+        hitService()
     }
     
     private func handleOnRecieveEvent() {
@@ -150,6 +192,7 @@ struct MapView: View {
         region = MKCoordinateRegion(
                     center: locationManagerCoordinate(),
                     span: MKCoordinateSpan(latitudeDelta: currentSpan, longitudeDelta: currentSpan))
+        
     }
 }
 
