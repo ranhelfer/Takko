@@ -108,13 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				6814C23625BECDC600E12364 /* YelpDemoApp.swift */,
-				6814C23825BECDC600E12364 /* ContentView.swift */,
-				6814C26925BED8AC00E12364 /* MapView.swift */,
-				6814C28125C028A600E12364 /* CurrentLocationView.swift */,
-				6814C26E25BED90500E12364 /* LocationManager.swift */,
-				6814C26425BECDF300E12364 /* YelpRequestService.swift */,
-				6814C27325BFFD2A00E12364 /* BusinessModel.swift */,
-				6814C28625C04A9E00E12364 /* AnnotationItem.swift */,
+				684C291725C16CF900E605BA /* Services */,
+				684C291625C16CDA00E605BA /* Models */,
+				684C291525C16CB400E605BA /* Views */,
 				6814C23A25BECDC900E12364 /* Assets.xcassets */,
 				6814C23F25BECDC900E12364 /* Info.plist */,
 				6814C23C25BECDC900E12364 /* Preview Content */,
@@ -146,6 +142,34 @@
 				6814C25525BECDC900E12364 /* Info.plist */,
 			);
 			path = YelpDemoUITests;
+			sourceTree = "<group>";
+		};
+		684C291525C16CB400E605BA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6814C23825BECDC600E12364 /* ContentView.swift */,
+				6814C26925BED8AC00E12364 /* MapView.swift */,
+				6814C28125C028A600E12364 /* CurrentLocationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		684C291625C16CDA00E605BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6814C27325BFFD2A00E12364 /* BusinessModel.swift */,
+				6814C28625C04A9E00E12364 /* AnnotationItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		684C291725C16CF900E605BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6814C26E25BED90500E12364 /* LocationManager.swift */,
+				6814C26425BECDF300E12364 /* YelpRequestService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
