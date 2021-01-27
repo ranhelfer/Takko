@@ -1,5 +1,5 @@
 //
-//  MapView.swift
+//  MainScreenView.swift
 //  YelpDemo
 //
 //  Created by rhalfer on 25/01/2021.
@@ -14,7 +14,7 @@
 import SwiftUI
 import MapKit
 
-struct MapView: View {
+struct MainScreenView: View {
     
     @ObservedObject var locationManager = LocationManager()
 
@@ -196,10 +196,10 @@ struct MapView: View {
     }
 }
 
-struct MapView_Previews: PreviewProvider {
+struct MainScreenView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MapView()
+            MainScreenView()
         }
     }
 }
