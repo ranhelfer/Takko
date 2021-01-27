@@ -11,7 +11,7 @@ class ImageDownloader: NSObject, ObservableObject {
     
     @Published var imageDownloaded: UIImage? {
         didSet {
-            self.objectWillChange.send()
+            objectWillChange.send()
         }
     }
     
