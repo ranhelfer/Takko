@@ -62,7 +62,7 @@ struct MainScreenView: View {
                         }
                     }
                     if selectedFilterType == 1 {
-                        TextField("Enter Search Text Here", text: $searchByKeyText, onCommit: didPressReturn)
+                        TextField("Enter Search Text Here", text: $searchByKeyText)
                     }
                     if selectedFilterType == 0 {
                         HStack {
@@ -77,30 +77,20 @@ struct MainScreenView: View {
                                 
                 Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
                     MapPin(coordinate: item.coordinate)
-                }.gesture(dragGesture.onChanged({ (value) in
-                    /* Show a spinner ? */
-                }).onEnded({ value in
-                    // Maybe upon end of drag we should hit the service ?
-                    //hitService()
-                }))
+                }
                 
                 CurrentLocationView(region: $region)
                 
                 List {
                     ForEach(self.sortedBusinesses) { business in
-                        Text(self.stringForFilter(business: business))
-                            .font(.body)
-                            .onTapGesture {
-                                /* Show restaurant page ? if so use the NavigationLink */
-                                selectedBusiness = business
-                            }
+                        BuisnessRow(buisness: business, itemString: self.stringForFilter(business: business))
                     }
                 }
                 Spacer()
             }.onReceive(self.locationManager.objectWillChange, perform: { _ in
                 handleOnRecieveEvent()
             })
-            .navigationBarTitle("") //this must be empty
+            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
@@ -111,15 +101,11 @@ struct MainScreenView: View {
     }
     
     func stringForFilter(business: BusinessModel) -> String {
-        var str = "\(business.name ?? "")  distance \(business.distance ?? 0)"
+        var str = "\(business.name ?? "")  distance \(Int(business.distance ?? 0)) [m]"
         if self.selectedFilterType == 3 {
             str = "\(business.name ?? "")  rating \(business.rating ?? 0)"
         }
         return str
-    }
-    func didPressReturn() {
-        print("did press return")
-        
     }
     
     func didPressReturnLatitude() {

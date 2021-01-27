@@ -23,6 +23,18 @@ struct BusinessModel: Hashable, Codable, Identifiable {
     let rating: Double?
     let coordinates: BusinessModelCoordinates?
     let distance: Double?
+    
+    static func mockModel() -> BusinessModel {
+        return BusinessModel(id: "",
+                             name: "",
+                             image_url: "",
+                             is_closed: false,
+                             review_count: 0,
+                             categories: [],
+                             rating: 1,
+                             coordinates: nil,
+                             distance: 0)
+    }
 }
 
 struct BusinessModelCoordinates: Hashable, Codable {
