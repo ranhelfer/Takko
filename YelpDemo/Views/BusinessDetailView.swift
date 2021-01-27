@@ -13,6 +13,7 @@ struct BusinessDetailView: View {
     @ObservedObject private var imageDownloadedService = ImageDownloader()
     @State private var region = MKCoordinateRegion()
     @State private var annotationItems = [AnnotationItem]()
+    @State var image:UIImage = UIImage()
 
     var body: some View {
         
@@ -32,7 +33,12 @@ struct BusinessDetailView: View {
             
             Spacer()
             
-            Image(uiImage: (imageDownloadedService.imageDownloaded ?? UIImage(named: "placeholder"))!)
+            Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                .onReceive(imageDownloadedService.objectWillChange, perform: { _ in
+                    self.image = (imageDownloadedService.imageDownloaded ?? UIImage(named: "placeholder"))!
+                })
                 .onAppear(perform: {
                     requestImage()
                     calculateRegion()

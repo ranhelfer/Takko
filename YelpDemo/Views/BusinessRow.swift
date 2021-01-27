@@ -12,15 +12,20 @@ struct BusinessRow: View {
     let business: BusinessModel
     let itemString: String
     @ObservedObject var imageDownloadedService = ImageDownloader()
+    @State var image:UIImage = UIImage()
 
     var body: some View {
         NavigationLink(destination: BusinessDetailView(business: business)) {
             HStack {
-                Image(uiImage: (imageDownloadedService.imageDownloaded ?? UIImage(named: "placeholder"))!)
-                    .frame(width: 80, height: 80)
-                    .scaledToFill()
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width:100, height:80)
                     .clipShape(Circle())
-                
+                    .aspectRatio(contentMode: .fill)
+                    .onReceive(imageDownloadedService.objectWillChange, perform: { _ in
+                        self.image = (imageDownloadedService.imageDownloaded ?? UIImage(named: "placeholder"))!
+                    })
+                Spacer()
                 Text(itemString)
             }.onAppear(perform: {
                 requestImage()
