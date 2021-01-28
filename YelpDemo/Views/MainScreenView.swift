@@ -89,6 +89,8 @@ struct MainScreenView: View {
                                 
                 Map(coordinateRegion: $region, annotationItems: annotationItems) { item  in
                     MapPin(coordinate: item.coordinate)
+                }.onTapGesture {
+                    hitService()
                 }
                 
                 CurrentLocationView(region: $region)
