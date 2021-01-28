@@ -192,8 +192,6 @@ struct MainScreenView: View {
     }
     
     private func setRegion() {
-        /*  TODO: Check why this line specifically is causing
-            runtime: SwiftUI: Modifying state during view update, this will cause undefined behavior. */
         region = MKCoordinateRegion(
                     center: locationManagerCoordinate(),
                     span: MKCoordinateSpan(latitudeDelta: currentSpan, longitudeDelta: currentSpan))
