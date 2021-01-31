@@ -50,11 +50,12 @@ struct BusinessDetailView: View {
                 .onReceive(imageDownloadedService.objectWillChange, perform: { _ in
                     self.image = (imageDownloadedService.imageDownloaded ?? UIImage(named: "placeholder"))!
                 })
-                .onAppear(perform: {
-                    requestImage()
-                    calculateRegion()
-                })
-        }
+        }.onDisappear(perform: {
+            imageDownloadedService.cancel()
+        }).onAppear(perform: {
+            requestImage()
+            calculateRegion()
+        })
                
     }
     

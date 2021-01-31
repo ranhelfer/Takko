@@ -26,7 +26,7 @@ struct BusinessModel: Hashable, Codable, Identifiable {
     
     static func mockModel() -> BusinessModel {
         return BusinessModel(id: "",
-                             name: "",
+                             name: "Super Duper Hamburger",
                              image_url: "",
                              is_closed: false,
                              review_count: 0,

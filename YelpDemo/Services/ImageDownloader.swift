@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 class ImageDownloader: NSObject, ObservableObject {
     
+    private var task:URLSessionDataTask?
+    
     @Published var imageDownloaded: UIImage? {
         didSet {
             objectWillChange.send()
@@ -22,7 +24,7 @@ class ImageDownloader: NSObject, ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
             if error == nil && data != nil && !data!.isEmpty{
                 DispatchQueue.main.async { [weak self] in
                     self?.imageDownloaded = UIImage(data: data!)
@@ -30,7 +32,10 @@ class ImageDownloader: NSObject, ObservableObject {
             }
         }
         
-        task.resume()
-        
+        task?.resume()
+    }
+    
+    func cancel() {
+        task?.cancel()
     }
 }

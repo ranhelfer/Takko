@@ -30,7 +30,9 @@ struct BusinessRow: View {
             }.onAppear(perform: {
                 requestImage()
             }).frame(height: 80)
-        }
+        }.onDisappear(perform: {
+            imageDownloadedService.cancel()
+        })
     }
     
     func requestImage() {
